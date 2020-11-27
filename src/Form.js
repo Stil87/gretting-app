@@ -1,8 +1,9 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchMessage } from "./actions";
 
 export default function Form() {
   const dispatch = useDispatch();
+  const isLoading = useSelector(state => state.loading);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -11,10 +12,13 @@ export default function Form() {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <h2>What's your name?</h2>
-      <input type="text" name="first_name" />
-      <button>Submit</button>
-    </form>
+    <>
+      {isLoading && <h3>Loading...</h3>}
+      <form onSubmit={onSubmit}>
+        <h2>What's your name?</h2>
+        <input type="text" name="first_name" />
+        <button>Submit</button>
+      </form>
+    </>
   );
 }
